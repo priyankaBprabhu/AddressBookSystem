@@ -3,10 +3,8 @@ package com.bridgelabz.address;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class AddressBook {
-    AddressBook() {
-
-    }
+public class AddressBook implements InterfaceAddress {
+    Scanner scan = new Scanner(System.in);
     private String firstName;
     private String lastName;
     private String address;
@@ -17,26 +15,7 @@ public class AddressBook {
     private long phoneNumber;
     ArrayList<AddressBook> addressBookDetail = new ArrayList<>();
 
-    public void readData() {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Enter the first name : ");
-        firstName = scan.next();
-        System.out.println("Enter the last name : ");
-        lastName = scan.next();
-        System.out.println("Enter the address : ");
-        address = scan.next();
-        System.out.println("Enter the city : ");
-        city = scan.next();
-        System.out.println("Enter the state : ");
-        state = scan.next();
-        System.out.println("Enter the zip code : ");
-        zip = scan.nextInt();
-        System.out.println("Enter the phone number : ");
-        phoneNumber = scan.nextLong();
-        System.out.println("Enter the email : ");
-        email = scan.next();
-        AddressBook contact = new AddressBook(firstName, lastName, address, city, state, zip, email, phoneNumber);
-        addressBookDetail.add(contact);
+    AddressBook() {
 
     }
 
@@ -50,6 +29,110 @@ public class AddressBook {
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
+
+    public void readData() {
+        System.out.println("Enter how many contacts you want to add");
+        int numOfContacts = scan.nextInt();
+        while (numOfContacts > 0) {
+
+            System.out.println("Enter the first name : ");
+            firstName = scan.next();
+            System.out.println("Enter the last name : ");
+            lastName = scan.next();
+            System.out.println("Enter the address : ");
+            address = scan.next();
+            System.out.println("Enter the city : ");
+            city = scan.next();
+            System.out.println("Enter the state : ");
+            state = scan.next();
+            System.out.println("Enter the zip code : ");
+            zip = scan.nextInt();
+            System.out.println("Enter the phone number : ");
+            phoneNumber = scan.nextLong();
+            System.out.println("Enter the email : ");
+            email = scan.next();
+            AddressBook contact = new AddressBook(firstName, lastName, address, city, state, zip, email, phoneNumber);
+            addressBookDetail.add(contact);
+
+            numOfContacts--;
+        }
+    }
+
+    public void editData() {
+        int i, choice;
+        System.out.println("\nEnter first name to edit :- ");
+        String name = scan.next();
+        for (i = 0; i < addressBookDetail.size(); i++) {
+            if (addressBookDetail.get(i).getFirstName().equals(name)) {
+                do {
+                    System.out.print("\nSelect option to edit----\n1.First_name \n2.Last_name \n3.Address \n4.City \n5.State \n6.Zip_code \n7.Phone_number \n8.Email :- ");
+                    int ch = scan.nextInt();
+                    switch (ch) {
+                        case 1 -> {
+                            System.out.print("Enter new first name :- ");
+                            addressBookDetail.get(i).setFirstName(scan.next());
+                            System.out.println("First name is updated.");
+                        }
+                        case 2 -> {
+                            System.out.print("Enter new last name :- ");
+                            addressBookDetail.get(i).setLastName(scan.next());
+                            System.out.println("Last name is updated.");
+                        }
+                        case 3 -> {
+                            System.out.print("Enter new address :- ");
+                            addressBookDetail.get(i).setAddress(scan.next());
+                            System.out.println("Address is updated.");
+                        }
+                        case 4 -> {
+                            System.out.print("Enter new city :- ");
+                            addressBookDetail.get(i).setCity(scan.next());
+                            System.out.println("City is updated.");
+                        }
+                        case 5 -> {
+                            System.out.print("Enter new state :- ");
+                            addressBookDetail.get(i).setState(scan.next());
+                            System.out.println("State is updated.");
+                        }
+                        case 6 -> {
+                            System.out.print("Enter new zip code :- ");
+                            addressBookDetail.get(i).setZip(scan.nextInt());
+                            System.out.println("Zip code is updated.");
+                        }
+                        case 7 -> {
+                            System.out.print("Enter new phone number :- ");
+                            addressBookDetail.get(i).setPhoneNo(scan.nextLong());
+                            System.out.println("Phone number is updated.");
+                        }
+                        case 8 -> {
+                            System.out.print("Enter new email :- ");
+                            addressBookDetail.get(i).setEmail(scan.next());
+                            System.out.println("Email is updated.");
+                        }
+                    }
+                    System.out.println("Enter 1 if you want to continue");
+                    choice = scan.nextInt();
+                } while (choice == 1);
+            } else
+                System.out.println("Please enter the correct first name");
+        }
+
+    }
+
+    public void deleteData() {
+        int i;
+        System.out.println("\nEnter first name to delete : ");
+        String name = scan.next();
+        System.out.println(addressBookDetail);
+        for (i = 0; i <= addressBookDetail.size(); i++) {
+
+            if (addressBookDetail.get(i).getFirstName().equals(name)) {
+                addressBookDetail.remove(addressBookDetail.get(i));
+                System.out.println("deleted");
+            } else
+                System.out.println("not deleted");
+        }
+    }
+
 
     public String toString() {
         return "\n First name : " + firstName +
@@ -70,56 +153,28 @@ public class AddressBook {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getAddress() {
-        return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
     }
 
-    public String getCity() {
-        return city;
-    }
-
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public String getState() {
-        return state;
     }
 
     public void setState(String state) {
         this.state = state;
     }
 
-    public int getZip() {
-        return zip;
-    }
-
     public void setZip(int zip) {
         this.zip = zip;
     }
 
-    public long getPhoneNo() {
-        return phoneNumber;
-    }
-
     public void setPhoneNo(long phoneNo) {
         this.phoneNumber = phoneNo;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     public void setEmail(String email) {
