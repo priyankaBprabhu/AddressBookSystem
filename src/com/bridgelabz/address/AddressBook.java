@@ -1,6 +1,6 @@
 package com.bridgelabz.address;
 
-import java.util.ArrayList;
+import java.util.*;
 import java.util.Scanner;
 
 public class AddressBook implements InterfaceAddress {
@@ -13,9 +13,14 @@ public class AddressBook implements InterfaceAddress {
     private String email;
     private int zip;
     private long phoneNumber;
-    ArrayList<AddressBook> addressBookDetail = new ArrayList<>();
+    List<AddressBook> addressBookDetail = new ArrayList<>();
+//    {{
+//        add(new AddressBook("Julin Bestina", "A", "Kozhippara", "Palakkad", "Kerala", 678557, "julin.bestina@yahoo.com", 8086904736L));
+//        add(new AddressBook("Monisha", "A", "ADYAR", "Chennai", "TamilNadu", 600018, "monisha56@gmail.com", 9485623185L));
+//        add(new AddressBook("Sham", "P", "Alathur", "Thrissur", "Kerala", 680741, "sham.158@gmail.com", 9847561235L));
+//    }};
 
-    AddressBook() {
+    public AddressBook() {
 
     }
 
@@ -34,27 +39,32 @@ public class AddressBook implements InterfaceAddress {
         System.out.println("Enter how many contacts you want to add");
         int numOfContacts = scan.nextInt();
         while (numOfContacts > 0) {
+            System.out.println("Enter Your First Name: ");
+            String firstName = scan.next();
+            boolean isPresent = addressBookDetail.stream().anyMatch(n -> n.getFirstName().equalsIgnoreCase(firstName));
+            if (!isPresent) {
+                numOfContacts--;
+                System.out.println("Enter the last name : ");
+                lastName = scan.next();
+                System.out.println("Enter the address : ");
+                address = scan.next();
+                System.out.println("Enter the city : ");
+                city = scan.next();
+                System.out.println("Enter the state : ");
+                state = scan.next();
+                System.out.println("Enter the zip code : ");
+                zip = scan.nextInt();
+                System.out.println("Enter the phone number : ");
+                phoneNumber = scan.nextLong();
+                System.out.println("Enter the email : ");
+                email = scan.next();
+                addressBookDetail.add(new AddressBook(firstName, lastName, address, city, state, zip, email, phoneNumber));
+                System.out.println("\nContact added to Address Book");
 
-            System.out.println("Enter the first name : ");
-            firstName = scan.next();
-            System.out.println("Enter the last name : ");
-            lastName = scan.next();
-            System.out.println("Enter the address : ");
-            address = scan.next();
-            System.out.println("Enter the city : ");
-            city = scan.next();
-            System.out.println("Enter the state : ");
-            state = scan.next();
-            System.out.println("Enter the zip code : ");
-            zip = scan.nextInt();
-            System.out.println("Enter the phone number : ");
-            phoneNumber = scan.nextLong();
-            System.out.println("Enter the email : ");
-            email = scan.next();
-            AddressBook contact = new AddressBook(firstName, lastName, address, city, state, zip, email, phoneNumber);
-            addressBookDetail.add(contact);
+            } else {
+                System.out.println("This address contact is already present");
+            }
 
-            numOfContacts--;
         }
     }
 
