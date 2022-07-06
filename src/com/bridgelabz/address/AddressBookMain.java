@@ -1,38 +1,26 @@
 package com.bridgelabz.address;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
-
 public class AddressBookMain {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        char userChoice;
 
-        System.out.println("Welcome to Address Book Program");
-        InterfaceAddress addressBook = new AddressBook();
-        do {
-            System.out.println("Select your Option: \n1.Add new Contact \n2.Edit Contact \n3.Delete Contact");
-            int option = sc.nextInt();
-
-            switch (option) {
-                case 1 -> {
-                    addressBook.readData();
-                    System.out.println("Person Details Added Successfully");
-                }
-                case 2 -> {
-                    addressBook.editData();
-                    System.out.println("Person Details Edited Successfully");
-                }
-                case 3 -> {
-                    addressBook.deleteData();
-                    System.out.println("Person Details Deleted Successfully");
-                }
-
-            }
-
-            System.out.println("Are you wish to continue:  Y?N");
-            userChoice = sc.next().toUpperCase().charAt(0);
-        } while (userChoice != 'N');
-
-
+    static Scanner scan = new Scanner(System.in);
+    public static void main( String[] args )
+    {
+        System.out.println( "WELCOME TO ADDREES BOOK PROGRAM" );
+        Map<String, AddressBook> map = new HashMap<>();
+        System.out.println("Enter Number of address book you want to add");
+        int count = scan.nextInt();
+        int i = 0;
+        while (i < count) {
+            System.out.println("Enter book name");
+            String bookName = scan.next();
+            AddressBook addressBook = new AddressBook();
+            addressBook.operation();
+            map.put(bookName, addressBook);
+            i++;
+        }
+        System.out.println(map);
     }
 }
