@@ -21,6 +21,7 @@ public class AddressBook {
             System.out.println("Enter 1 to Add");
             System.out.println("Enter 2 to Edit");
             System.out.println("Enter 3 to Delete");
+            System.out.println("Enter 4 to multiple person city");
             switch (scan.nextInt()) {
                 case 1:
                     add();
@@ -30,6 +31,9 @@ public class AddressBook {
                     break;
                 case 3:
                     delete();
+                    break;
+                case 4:
+                    searchContact();
                     break;
                 default:
                     status = false;
@@ -139,9 +143,21 @@ public class AddressBook {
     }
 
     public void print() {
-        Iterator<Contacts> it = list.iterator();
-        while (it.hasNext()) {
-            System.out.println(it.next());
+        Iterator<Contacts> itr = list.iterator();
+        while (itr.hasNext()) {
+            System.out.println(itr.next());
         }
+    }
+
+    public void searchContact() {
+        System.out.println("Enter the city:");
+        String city = scan.next();
+        list.stream().filter(contacts -> contacts.getCity().equalsIgnoreCase(city)).forEach(contacts -> System.out.println(contacts));
+    }
+    @Override
+    public String toString() {
+        return "AddressBook{" +
+                "list=" + list +
+                '}';
     }
 }
