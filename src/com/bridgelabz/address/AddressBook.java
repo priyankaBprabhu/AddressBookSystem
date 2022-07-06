@@ -23,6 +23,7 @@ public class AddressBook {
             System.out.println("Enter 3 to Delete");
             System.out.println("Enter 4 to multiple person city");
             System.out.println("Enter 5 to sort person Name");
+            System.out.println("Enter 6 to sort By State and City");
             switch (scan.nextInt()) {
                 case 1:
                     add();
@@ -34,12 +35,15 @@ public class AddressBook {
                     delete();
                     break;
                 case 4:
-                    searchContact();
+                    searchContactBYCity();
                     break;
                 case 5:
                     sortContactByName();
                     break;
-
+                case 6:
+                    sortContactsBYState();
+                    sortContactsByCity();
+                    break;
                 default:
                     status = false;
             }
@@ -154,16 +158,23 @@ public class AddressBook {
         }
     }
 
-    public void searchContact() {
+    public void searchContactBYCity() {
         System.out.println("Enter the city:");
         String city = scan.next();
         list.stream().filter(contacts -> contacts.getCity().equalsIgnoreCase(city)).forEach(contacts -> System.out.println(contacts));
         long count = list.stream().filter(n -> n.getCity().equalsIgnoreCase(city)).count();
         System.out.println("No. of Persons in city " + city + ":" + count);
     }
+    public void sortContactsBYState() {
+        list.stream().sorted(Comparator.comparing(Contacts::getState)).forEach(System.out::println);
+    }
+    public void sortContactsByCity() {
+        list.stream().sorted(Comparator.comparing(Contacts::getCity)).forEach(System.out::println);
+    }
     public void sortContactByName() {
         list.stream().sorted(Comparator.comparing(Contacts::getFirstName)).forEach(System.out::println);
     }
+
     @Override
     public String toString() {
         return "AddressBook{" +
