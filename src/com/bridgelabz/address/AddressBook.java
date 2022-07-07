@@ -24,28 +24,19 @@ public class AddressBook {
             System.out.println("Enter 4 to multiple person city");
             System.out.println("Enter 5 to sort person Name");
             System.out.println("Enter 6 to sort By State and City");
+            System.out.println("Enter 7 to AddressBook file IO");
             switch (scan.nextInt()) {
-                case 1:
-                    add();
-                    break;
-                case 2:
-                    edit();
-                    break;
-                case 3:
-                    delete();
-                    break;
-                case 4:
-                    searchContactBYCity();
-                    break;
-                case 5:
-                    sortContactByName();
-                    break;
-                case 6:
+                case 1 -> add();
+                case 2 -> edit();
+                case 3 -> delete();
+                case 4 -> searchContactBYCity();
+                case 5 -> sortContactByName();
+                case 6 -> {
                     sortContactsBYState();
                     sortContactsByCity();
-                    break;
-                default:
-                    status = false;
+                }
+                case 7 -> File_read_and_write();
+                default -> status = false;
             }
         } while (status);
     }
@@ -174,7 +165,13 @@ public class AddressBook {
     public void sortContactByName() {
         list.stream().sorted(Comparator.comparing(Contacts::getFirstName)).forEach(System.out::println);
     }
+    private  void File_read_and_write() {
+        AddressBookFile.createFile();
+        String input = list.toString();
+        AddressBookFile.add_details_to_file(input);
+        AddressBookFile.read_details_to_file();
 
+    }
     @Override
     public String toString() {
         return "AddressBook{" +
